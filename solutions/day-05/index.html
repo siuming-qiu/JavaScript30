@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+      }
+      body {
+        display: flex;
+      }
+      .panels {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Amatic SC', cursive;
+        font-size: 3.6rem;
+        width: 20vw;
+        background-size: cover;
+        background-position: center;
+        transition: width 0.8s cubic-bezier(0.61,-0.19, 0.7,-0.11), font-size 0.8s linear;
+        text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
+      }
+      .panels p:nth-child(1) {
+          font-size: 3.6rem;
+          transform: translateY(-100vh);
+          transition: transform 0.3s ease
+      }
+      .panels p:nth-child(3) {
+          transform: translateY(100vh);
+          font-size: 3.6rem;
+          transition: transform 0.3s ease;
+      }
+      .panel1 {
+        background-image: url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500);
+      }
+      .panel2 {
+        background-image: url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500);
+      }
+      .panel3 {
+        background-image: url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d);
+      }
+      .panel4 {
+        background-image: url(https://source.unsplash.com/ITjiVXcwVng/1500x1500);
+      }
+      .panel5 {
+        background-image: url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500);
+      }
+      .active {
+          width: 50vw;
+          font-size: 6rem;
+      }
+      .show {
+          transform: translateY(0) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panels panel1">
+        <p>HEY</p>
+        <p>LET'S</p>
+        <p>DANCE</p>
+    </div>
+    <div class="panels panel2">
+        <p>GIVE</p>
+        <p>TAKE</p>
+        <p>RECEIVE</p>
+    </div>
+    <div class="panels panel3">
+        <p>EXPERIENCE</p>
+        <p>IT</p>
+        <p>TODAY</p>
+    </div>
+    <div class="panels panel4">
+        <p>GIVE</p>
+        <p>ALL</p>
+        <p>DANCE</p>
+    </div>
+    <div class="panels panel5">
+        <p>LIFE</p>
+        <p>IN</p>
+        <p>MOTION</p>
+    </div>
+    <script>
+        const panels = document.querySelectorAll('.panels')
+        const change = function() {
+            this.classList.toggle('active')
+        }
+        const show = function() {
+            if(this.classList.contains('active')) {
+                this.children[0].classList.add('show')
+                this.children[2].classList.add('show')
+            } else {
+                this.children[0].classList.remove('show')
+                this.children[2].classList.remove('show')
+            }
+            
+        }
+        panels.forEach(item => item.addEventListener('click', change))
+        panels.forEach(item => item.addEventListener('transitionend', show))
+    </script>
+  </body>
+</html>
