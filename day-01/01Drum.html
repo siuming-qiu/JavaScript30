@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body, ul {
+            padding: 0;
+            margin: 0;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background: url(public/background.jpg) no-repeat;
+            background-size: cover;
+        }
+        .container {
+            box-sizing: border-box;
+            display: flex;
+            width: 100vw;
+            padding: 0 2vw;
+            height: 100vh;
+            margin: 0 auto;
+            justify-content: space-around;
+            align-items: center;
+        }
+        li {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            list-style: none;
+            width: 8vw;
+            height: 14vh;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 4px solid rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 2.4rem;
+        }
+        .container li span:nth-child(2) {
+            font-size: 0.8rem;
+            color: #ffc600;
+        }
+        .play {
+            border-color: #ffc600;
+            box-shadow: 0 0 1rem #ffc600;
+            transform: scale(1.1);
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <!-- 设置tabindex属性才能绑定keydown事件 -->
+    <ul class="container" tabindex="0">
+        <li id="key_65"><span>A</span><span>CLAP</span></li>
+        <li id="key_83"><span>S</span><span>HIHAT</span></li>
+        <li id="key_68"><span>D</span><span>KICK</span></li>
+        <li id="key_70"><span>F</span><span>OPENHAT</span></li>
+        <li id="key_71"><span>G</span><span>BOOM</span></li>
+        <li id="key_72"><span>H</span><span>RIDE</span></li>
+        <li id="key_74"><span>J</span><span>SNARE</span></li>
+        <li id="key_75"><span>K</span><span>TOM</span></li>
+        <li id="key_76"><span>L</span><span>TINK</span></li>
+    </ul>
+    <audio id="key_65" src="./public/sounds/clap.wav"></audio>
+    <audio id="key_83" src="./public/sounds/hihat.wav"></audio>
+    <audio id="key_68" src="./public/sounds/kick.wav"></audio>
+    <audio id="key_70" src="./public/sounds/openhat.wav"></audio>
+    <audio id="key_71" src="./public/sounds/boom.wav"></audio>
+    <audio id="key_72" src="./public/sounds/ride.wav"></audio>
+    <audio id="key_74" src="./public/sounds/snare.wav"></audio>
+    <audio id="key_75" src="./public/sounds/tom.wav"></audio>
+    <audio id="key_76" src="./public/sounds/tink.wav"></audio>
+    <script>
+        const ul = document.querySelector('.container')
+        const li = document.querySelectorAll('li')
+        const audio = document.querySelectorAll('audio')
+        const arr = Array.from(li)
+        const play = function(event) {
+            const key_code = `key_${event.keyCode}`
+            const index = arr.findIndex(item => item.id === key_code)
+            if(index > -1) {
+                audio[index].currentTime = 0
+                audio[index].play()
+                li[index].classList.add('play')
+            }
+        }
+        const remove = function(event) {
+            event.target.classList.remove('play')
+        }
+        ul.addEventListener('keydown', play)
+        arr.forEach(item => item.addEventListener('transitionend', remove))
+    </script>
+</body>
+</html>
