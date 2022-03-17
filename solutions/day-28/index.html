@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      :root {
+          --ratio: 25%;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .container {
+        margin: 0 auto;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #4c4c4c url("https://unsplash.it/1500/900?image=1021");
+        background-size: cover;
+      }
+      .control {
+          position: relative;
+          width: 60px;
+          height: 400px;
+          border-radius: 30px;
+          margin-left: 10px;
+          background-color: #fff;
+          overflow: hidden;
+      }
+      .bar {
+          position: absolute;
+          width: 100%;
+          height: var(--ratio);
+          text-align: center;
+          padding-top: 10px;
+          color: #fff;
+          background-image: linear-gradient(#3a75b3, #b36fcc);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <video
+        width="765"
+        height="430"
+        src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
+        loop
+        controls
+      ></video>
+      <div class="control">
+          <div class="bar">1x</div>
+      </div>
+    </div>
+    <script>
+        const control= document.querySelector(".control")
+        const bar = document.querySelector(".bar")
+        const video = document.querySelector('video')
+        const change = function(e) {
+            const percent = (e.pageY - this.offsetTop) / this.offsetHeight
+            bar.style.height = percent * 100 + '%'
+            const ratio = Math.max(0.4, (percent * 4).toFixed(2))
+            bar.innerText = ratio + 'x'
+            video.playbackRate = ratio;
+        }
+        control.addEventListener('mousemove', change)
+    </script>
+  </body>
+</html>
