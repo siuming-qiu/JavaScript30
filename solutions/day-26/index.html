@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      ul,
+      p {
+        margin: 0;
+        padding: 0;
+      }
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      li {
+        list-style: none;
+      }
+      body {
+        background: linear-gradient(
+            45deg,
+            hsla(340, 100%, 55%, 1) 0%,
+            hsla(340, 100%, 55%, 0) 70%
+          ),
+          linear-gradient(
+            135deg,
+            hsla(225, 95%, 50%, 1) 10%,
+            hsla(225, 95%, 50%, 0) 80%
+          ),
+          linear-gradient(
+            225deg,
+            hsla(140, 90%, 50%, 1) 10%,
+            hsla(140, 90%, 50%, 0) 80%
+          ),
+          linear-gradient(
+            315deg,
+            hsla(35, 95%, 55%, 1) 100%,
+            hsla(35, 95%, 55%, 0) 70%
+          );
+      }
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 40vw;
+        margin: 5vh auto;
+      }
+      .container li {
+          position: relative;
+          cursor: pointer;
+      }
+      .container p {
+        padding: 0 1.5vw;
+        min-height: 5vh;
+        border-radius: 5px;
+        line-height: 5vh;
+        text-align: center;
+        font-size: 1.2rem;
+        color: #ffff00;
+        font-weight: 350;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      .dropdown {
+        position: absolute;
+        left: calc(-20vw + 50%);
+        top:  7.5vh;
+        width: 40vw;
+        height: 20vh;
+        border-radius: 10px;
+        background-color: #fff;
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .dropdown::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -15px;
+        left: calc(50% - 10px);
+        height: 0;
+        width: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 15px solid #fff;
+      }
+      .active {
+          opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <ul class="container">
+        <li>
+          <p>About Me</p>
+          <div class="dropdown">123</div>
+        </li>
+        <li><p>Courses</p><div class="dropdown">123</div></li>
+        <li><p>Other Links</p><div class="dropdown">123</div></li>
+      </ul>
+    </div>
+    <script>
+        const li = document.querySelectorAll('.container li')
+        const show = function() {
+            const current = this.querySelector('.dropdown')
+            current.classList.add('active')
+        }
+        const hide = function() {
+            const current = this.querySelector('.dropdown')
+            current.classList.remove('active')
+        }
+        li.forEach(item => item.addEventListener('mouseenter', show))
+        li.forEach(item => item.addEventListener('mouseleave', hide))
+    </script>
+  </body>
+</html>
