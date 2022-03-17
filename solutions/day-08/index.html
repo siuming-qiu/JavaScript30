@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      const canvas = document.getElementById("canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const ctx = canvas.getContext("2d");
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      let isDrawing = false;
+      let currentX = 0,
+        currentY = 0;
+      let direction = true;
+      let hue = 120;
+      let lineWidth = (Math.random() * 100) >> 0;
+      const draw = function (e) {
+        if (!isDrawing) return;
+        const { clientX, clientY } = event;
+        if (lineWidth > 100 || lineWidth <= 1) {
+          direction = !direction;
+        }
+        if (direction) {
+          lineWidth++;
+        } else {
+          lineWidth--;
+        }
+        hue = hue > 360 ? 0 : hue + 1;
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.beginPath();
+        ctx.moveTo(currentX, currentY);
+        ctx.lineTo(clientX, clientY);
+        ctx.stroke();
+        // 更新位置
+        [currentX, currentY] = [e.clientX, e.clientY];
+      };
+      canvas.addEventListener("mousedown", (e) => {
+        (isDrawing = true), ([currentX, currentY] = [e.clientX, e.clientY]);
+      });
+      canvas.addEventListener("mousemove", draw);
+      canvas.addEventListener("mouseup", () => (isDrawing = false));
+    </script>
+  </body>
+</html>
